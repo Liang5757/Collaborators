@@ -1,3 +1,6 @@
+from utils import paser
+
 
 if __name__ == '__main__':
-    command = input("请输入命令(Myapp.exe [parameter] [num]):\n")
+    # return args from command line
+    args = paser.arg_parse()
