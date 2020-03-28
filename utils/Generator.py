@@ -1,10 +1,20 @@
 from utils.Arithmetic import *
-import random
 
 
-class Generator(Arithmetic):
+class Generator(object):
 
-    def __init__(self):
-        super(Arithmetic, self).__init__()
-        # 操作数个数
-        self.operator_num = random.randint(1, 3)
+    def __init__(self, num):
+        # 表达式个数
+        self.expression_num = num
+        # 表达式集
+        self.expressions = []
+
+    def expression_generator(self):
+        while self.expression_num > 1:
+            temp = Arithmetic().create_arithmetic()
+
+            if temp:
+                self.expressions.append(temp)
+                self.expression_num -= 1
+            else:
+                pass
