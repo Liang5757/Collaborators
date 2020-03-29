@@ -1,5 +1,4 @@
 from utils.paser import arg_parse
-from utils import paser
 
 
 if __name__ == '__main__':

@@ -21,6 +21,10 @@ class Arithmetic(object):
         self.operand_list = []
         # 表达式
         self.expression = ""
+        # 储存题目
+        self.exercise = []
+        # 储存答案
+        self.answer = []
 
     # 生成随机操作数(自然数0、真分数1)
     def random_number(self):
