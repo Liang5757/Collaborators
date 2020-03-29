@@ -1,8 +1,13 @@
 from utils.paser import arg_parse
+from utils import paser
 
 
 if __name__ == '__main__':
     # return args from command line
-    agrs = arg_parse()
-    if agrs.g:
+    agr = arg_parse()
+    if agr.g:
+        # GUI on
+        pass
+    else:
+        # GUI off
         pass

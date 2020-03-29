@@ -10,7 +10,7 @@ def arg_parse():
     parser.add_argument('-a', nargs=1, type=str, help='answer file')
     parser.add_argument('-g', help='GUI mode')
     args = parser.parse_args()
-    # print(args)
+    print(type(args.n[0]))
     return args
 
 
