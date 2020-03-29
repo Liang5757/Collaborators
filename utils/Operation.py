@@ -6,6 +6,7 @@ if not os.path.exists('../docs'):
     os.mkdir('../docs')
 
 
+# 保存题目 传入序列号以及题目
 def save_exercise(sequence, title):
     exercise_file = '../docs/Exercises.txt'
     try:
@@ -15,6 +16,7 @@ def save_exercise(sequence, title):
         print('Exercise.txt create failed. Please check again')
 
 
+# 保存答案 传入序列号以及答案
 def save_answer(sequence, answer):
     answer_file = '../docs/Answer.txt'
     try:
@@ -25,6 +27,7 @@ def save_answer(sequence, answer):
         print('Answer.txt create failed. Please check again')
 
 
+# 保存比较结果 传入正确列表以及错误列表
 def inspect(correct_list, wrong_list):
     inspect_file = '../docs/Grade.txt'
     try:
@@ -41,4 +44,4 @@ def calculate():
 
 
 if __name__ == '__main__':
-    inspect([1, 2, 3], [4, 5, 6])
+    pass
