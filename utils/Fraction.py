@@ -57,4 +57,3 @@ class Fraction(object):
             operand = str(int(self.molecular)) + "/" + str(int(self.denominator))
 
         return operand
-
