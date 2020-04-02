@@ -2,8 +2,8 @@
 import os
 
 # 文件保存位置
-if not os.path.exists('../docs'):
-    os.mkdir('../docs')
+# if not os.path.exists('../docs'):
+#     os.mkdir('../docs')
 
 
 # 保存题目 传入序列号以及题目

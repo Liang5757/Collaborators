@@ -95,6 +95,7 @@ class Arithmetic(object):
             self.update_operand_place(operand_place, bracket_place)
             bracket_num -= 1
 
+    # 生成表达式
     def create_arithmetic(self):
         self.create_operand_list()
         self.create_operator_list()
@@ -111,6 +112,3 @@ class Arithmetic(object):
             self.insert_bracket(bracket_num)
 
         return self.expression_split
-
-
-print(Arithmetic().create_arithmetic())

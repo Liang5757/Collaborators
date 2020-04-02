@@ -44,8 +44,6 @@ class Fraction(object):
 
     # 将分子分母变为字符串形式
     def to_string(self):
-        operand = ""
-
         if self.denominator == 1 or self.molecular % self.denominator == 0:
             operand = str(int(self.molecular / self.denominator))
         elif self.molecular > self.denominator:

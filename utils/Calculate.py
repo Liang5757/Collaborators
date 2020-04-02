@@ -1,9 +1,15 @@
 from utils.Fraction import *
 
+
 class Calculate(object):
 
     def __init__(self, expression):
         self.expression = expression
+
+    def test(self):
+        fra1 = Fraction("6'4/6")
+        fra2 = Fraction("0")
+        print(self.fraction_divide(fra1, fra2).to_string())
 
     # 分数加法 a1/b1 + a2/b2 = (a1b2 + a2b1)/b1b2
     @staticmethod
@@ -37,3 +43,5 @@ class Calculate(object):
 
         return Fraction(molecular, denominator)
 
+
+Calculate("").test()
