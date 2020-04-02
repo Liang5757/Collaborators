@@ -6,13 +6,8 @@ from utils.constant import *
 
 class Calculate(object):
 
-    # def __init__(self, expressions):
-    #     self.expression = expressions
-
-    def test(self):
-        fra1 = Fraction("6'4/6")
-        fra2 = Fraction("0")
-        print(self.fraction_divide(fra1, fra2).to_string())
+    def __init__(self, expression):
+        self.expression = expression
 
     # 分数加法 a1/b1 + a2/b2 = (a1b2 + a2b1)/b1b2
     @staticmethod
@@ -47,16 +42,16 @@ class Calculate(object):
         return Fraction(molecular, denominator)
 
     # 逆波兰
-    def generate_postfix_expression(self, expression):
+    def generate_postfix_expression(self):
         # 操作符栈
-        operator_stack = list()
+        operator_stack = []
         # 表达式队列
-        expression_stack = list()
+        expression_stack = []
 
-        for element in expression:
+        for element in self.expression:
             # 如果数字进入表达式栈
             if element in operators:
-                # 左括号进栈, 如果栈空, 操作符直接进操作符栈,
+                # 左括号进栈, 如果栈空, 操作符直接进操作符栈
                 if not operator_stack:
                     operator_stack.append(element)
                 else:
@@ -90,15 +85,16 @@ class Calculate(object):
 
         return expression_stack
 
-    def calcaulate(self, expressions):
+    def calcaulate(self):
         # 生成后缀表达式
-        expressions_result = self.generate_postfix_expression(expressions)
+        expressions_result = self.generate_postfix_expression()
+        print(expressions_result)
         # 使用list作为栈来计算
-        calcalate_stack = list()
+        calcalate_stack = []
 
         # 后缀遍历
         for element in expressions_result:
-            # 若是数字则入栈, 操作符则讲栈顶两个元素出栈
+            # 若是数字则入栈, 操作符则将栈顶两个元素出栈
             if element not in operators:
                 calcalate_stack.append(element)
             else:
@@ -107,13 +103,19 @@ class Calculate(object):
                 # 操作数
                 num2 = calcalate_stack.pop()
                 # 结果
-                result = self.operate(num1, num2, element)
+                result = self.operate(num2, num1, element)
                 # 结果入栈
                 calcalate_stack.append(result)
+                print(calcalate_stack)
         # 返回结果
         return calcalate_stack[0]
 
     def operate(self, num1, num2, operater):
+        if not isinstance(num1, Fraction):
+            num1 = Fraction(num1)
+        if not isinstance(num2, Fraction):
+            num2 = Fraction(num2)
+
         # 计算结果
         if operater == '+':
             return self.fraction_add(num1, num2)
@@ -127,9 +129,8 @@ class Calculate(object):
 
 if __name__ == '__main__':
 
-    c = Calculate()
-    expression = '9+(3-1)*3+8/2'
-    # expression = Arithmetic().create_arithmetic()
-    expression_result = c.calcaulate(expression)
+    expressions = ['7', '×', '(', '2', '-', '0', ')']
+    c = Calculate(expressions)
+    expression_result = c.calcaulate()
     print(expression_result)
     # 返回结果
