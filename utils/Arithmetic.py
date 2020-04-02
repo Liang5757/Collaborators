@@ -19,16 +19,18 @@ class Arithmetic(object):
         self.operand_list = []
         # 存放分离化的表达式
         self.expression_split = []
+        # 表达式
+        self.expression = ""
 
     # 生成随机操作数(自然数0、真分数1)
     def random_number(self):
-        num_type = random.randint(0, 1)
+        num_type = random.randint(1, 1)
         number = ""
 
-        if num_type == 0:
+        if num_type != 0:
             # 不包括self.domain
             number = str(random.randint(0, self.domain - 1))
-        elif num_type == 1:
+        else:
             # 整数部分
             z = random.randint(0, self.domain - 1)
             # 分母
@@ -61,7 +63,7 @@ class Arithmetic(object):
 
     # 随机产生括号的位置
     def random_bracket_place(self):
-        while 1:
+        while True:
             left_bracket = random.randint(1, self.operand_num - 1)
             right_bracket = random.randint(left_bracket + 1, self.operand_num)
 
@@ -112,3 +114,8 @@ class Arithmetic(object):
             self.insert_bracket(bracket_num)
 
         return self.expression_split
+
+
+if __name__ == '__main__':
+    print(Arithmetic().create_arithmetic())
+
