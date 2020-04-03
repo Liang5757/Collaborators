@@ -139,6 +139,6 @@ class Arithmetic(object):
 
 
 if __name__ == '__main__':
-    for i in range(10):
+    # for i in range(10):
         print(Arithmetic().create_arithmetic())
 
