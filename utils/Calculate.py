@@ -41,75 +41,7 @@ class Calculate(object):
 
         return Fraction(molecular, denominator)
 
-    # 逆波兰
-    def generate_postfix_expression(self):
-        # 操作符栈
-        operator_stack = []
-        # 表达式队列
-        expression_stack = []
-
-        for element in self.expression:
-            # 如果数字进入表达式栈
-            if element in operators:
-                # 左括号进栈, 如果栈空, 操作符直接进操作符栈
-                if not operator_stack:
-                    operator_stack.append(element)
-                else:
-                    # 若操作符是右括号, 操作符栈出栈直至遇到左括号
-                    # 操作符中除了括号全都进表达式队列
-                    if element == ")":
-                        for top in operator_stack[::-1]:
-                            if top != "(":
-                                expression_stack.append(top)
-                                operator_stack.pop()
-                            else:
-                                operator_stack.pop()
-                                break
-                    else:
-                        for top in operator_stack[::-1]:
-                            # 目标元素大于栈顶元素则入栈 否则出栈并入栈到队列中
-                            if priority[top] >= priority[element] and top != "(":
-                                expression_stack.append(top)
-                                operator_stack.pop()
-                            else:
-                                operator_stack.pop()
-                                break
-                        # 如果操作符栈所有元素优先级都大于目标操作符优先级 操作符则全部出栈
-                        if not operator_stack:
-                            operator_stack.append(element)
-            else:
-                expression_stack.append(element)
-        # 中序遍历完毕 若仍有操作符 操作栈的操作符入表达式栈中
-        for index in range(len(operator_stack)):
-            expression_stack.append(operator_stack.pop())
-
-        return expression_stack
-
-    def calcaulate(self):
-        # 生成后缀表达式
-        expressions_result = self.generate_postfix_expression()
-        print(expressions_result)
-        # 使用list作为栈来计算
-        calcalate_stack = []
-
-        # 后缀遍历
-        for element in expressions_result:
-            # 若是数字则入栈, 操作符则将栈顶两个元素出栈
-            if element not in operators:
-                calcalate_stack.append(element)
-            else:
-                # 操作数
-                num1 = calcalate_stack.pop()
-                # 操作数
-                num2 = calcalate_stack.pop()
-                # 结果
-                result = self.operate(num2, num1, element)
-                # 结果入栈
-                calcalate_stack.append(result)
-                print(calcalate_stack)
-        # 返回结果
-        return calcalate_stack[0]
-
+    # 基本运算选择器
     def operate(self, num1, num2, operater):
         if not isinstance(num1, Fraction):
             num1 = Fraction(num1)
@@ -126,11 +58,87 @@ class Calculate(object):
         if operater == '÷':
             return self.fraction_divide(num1, num2)
 
+    # 转成逆波兰
+    def generate_postfix_expression(self):
+        # 运算符栈
+        operator_stack = []
+        # 后缀队列
+        postfix_stack = []
 
-if __name__ == '__main__':
+        for element in self.expression:
+            # 如果是操作数则添加
+            if element not in operators:
+                postfix_stack.append(element)
+            # 如果是运算符则按优先级
+            elif element in operator.values():
+                # 运算符栈为空，或者栈顶为(，则压栈
+                if not operator_stack or operator_stack[-1] == '(':
+                    operator_stack.append(element)
+                # 若当前运算符优先级大于运算符栈顶，则压栈
+                elif priority[element] >= priority[operator_stack[-1]]:
+                    operator_stack.append(element)
+                # 否则弹栈并压入后缀队列直到优先级大于栈顶或空栈
+                else:
+                    while operator_stack and priority[element] < priority[operator_stack[-1]]:
+                        postfix_stack.append(operator_stack.pop())
+                    operator_stack.append(element)
 
-    expressions = ['7', '×', '(', '2', '-', '0', ')']
-    c = Calculate(expressions)
-    expression_result = c.calcaulate()
-    print(expression_result)
-    # 返回结果
+            # 如果遇到括号
+            else:
+                # 若为左括号直接压入运算符栈
+                if element == '(':
+                    operator_stack.append(element)
+                # 否则弹栈并压入后缀队列直到遇到左括号
+                else:
+                    while operator_stack[-1] != '(':
+                        postfix_stack.append(operator_stack.pop())
+                    operator_stack.pop()
+
+        while operator_stack:
+            postfix_stack.append(operator_stack.pop())
+
+        return postfix_stack
+
+    # 计算表达式(运算过程出现负数，或者除数为0，返回False，否则返回Fraction类)
+    def cal_expression(self):
+        # 生成后缀表达式
+        expressions_result = self.generate_postfix_expression()
+        print(expressions_result)
+
+        # 使用list作为栈来计算
+        calculate_stack = []
+
+        # 后缀遍历
+        for element in expressions_result:
+            # 若是数字则入栈, 操作符则将栈顶两个元素出栈
+            if element not in operators:
+                calculate_stack.append(element)
+            else:
+                # 操作数
+                num1 = calculate_stack.pop()
+                # 操作数
+                num2 = calculate_stack.pop()
+
+                # 除数不能为0
+                if num1 == "0" and element == '÷':
+                    return False
+
+                # 结果
+                result = self.operate(num2, num1, element)
+
+                if '-' in result.to_string():
+                    return False
+
+                # 结果入栈
+                calculate_stack.append(result)
+        # 返回结果
+        return calculate_stack[0]
+
+
+for i in range(100):
+    ex = Arithmetic().create_arithmetic()
+    t = Calculate(ex).cal_expression()
+    if t:
+        print(t.to_string())
+    else:
+        print("wrong")
