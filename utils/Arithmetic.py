@@ -24,8 +24,7 @@ class Arithmetic(object):
 
     # 生成随机操作数(自然数0、真分数1)
     def random_number(self):
-        num_type = random.randint(1, 1)
-        number = ""
+        num_type = random.randint(0, 1)
 
         if num_type != 0:
             # 不包括self.domain
@@ -87,21 +86,40 @@ class Arithmetic(object):
     def insert_bracket(self, bracket_num):
         # 操作数的位置
         operand_place = [2 * x - 1 for x in range(1, self.operand_num + 1)]
+        bracket_place = []
 
         while bracket_num:
-            # 随机括号位置，相对于数字的位子
-            bracket_place = self.random_bracket_place()
+            # 随机括号位置，相对于数字的位子，如果两次位置相同则重新随机
+            while 1:
+                temp = self.random_bracket_place()
+                if temp != bracket_place:
+                    bracket_place = temp
+                    break
+
             self.expression_split.insert(operand_place[bracket_place[0] - 1] - 1, "(")
             self.expression_split.insert(operand_place[bracket_place[1] - 1] + 1, ")")
             # 更新操作数的位置列表
             self.update_operand_place(operand_place, bracket_place)
             bracket_num -= 1
 
+    # 去除无用括号*可取消
+    def del_useless_bracket(self):
+        # 处理 (1) 的情况
+        for index, item in enumerate(self.expression_split):
+            if index == 0 or index == len(self.expression_split) - 1:
+                pass
+            else:
+                if self.expression_split[index - 1] == '(' and self.expression_split[index + 1] == ')':
+                    del self.expression_split[index - 1]
+                    del self.expression_split[index]
+
     # 生成表达式
     def create_arithmetic(self):
+        # 生成随机操作数、运算符列表
         self.create_operand_list()
         self.create_operator_list()
 
+        # 构建表达式
         self.expression_split.append(self.operand_list.pop())
         self.expression_split.append(self.operator_list.pop())
         while self.operator_list:
@@ -109,13 +127,18 @@ class Arithmetic(object):
             self.expression_split.append(self.operator_list.pop())
         self.expression_split.append(self.operand_list.pop())
 
+        # 插入括号
         if self.operator_num != 1:
             bracket_num = random.randint(1, self.operator_num - 1)
             self.insert_bracket(bracket_num)
+
+        # 删除无用括号
+        self.del_useless_bracket()
 
         return self.expression_split
 
 
 if __name__ == '__main__':
-    print(Arithmetic().create_arithmetic())
+    for i in range(10):
+        print(Arithmetic().create_arithmetic())
 
