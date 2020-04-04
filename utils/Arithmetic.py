@@ -19,8 +19,8 @@ class Arithmetic(object):
         self.operand_list = []
         # 存放分离化的表达式
         self.expression_split = []
-        # 表达式
-        self.expression = ""
+        # 存放表达式字符串
+        self.expression_str = ""
 
     # 生成随机操作数(自然数0、真分数1)
     def random_number(self):
@@ -136,9 +136,3 @@ class Arithmetic(object):
         self.del_useless_bracket()
 
         return self.expression_split
-
-
-if __name__ == '__main__':
-    for i in range(10):
-        print(Arithmetic().create_arithmetic())
-
