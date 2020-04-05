@@ -5,7 +5,7 @@ from utils.Operation import *
 
 class Generator(object):
 
-    def __init__(self, num):
+    def __init__(self, num, domain=10):
         # 表达式个数
         self.expression_num = num
         # 表达式集
@@ -16,11 +16,12 @@ class Generator(object):
         self.answers = []
         # 答案字符串集，用于io写入
         self.answers_str = []
+        self.domain = domain
 
     # 生成表达式集
     def expression_generator(self):
         while self.expression_num > 1:
-            expression = Arithmetic().create_arithmetic()
+            expression = Arithmetic(self.domain).create_arithmetic()
             answer = Calculate(expression).cal_expression()
 
             if answer:
@@ -57,5 +58,3 @@ class Generator(object):
 
             self.answers_str.append(answer_str)
 
-
-Generator(100).expression_generator()

@@ -1,5 +1,6 @@
 from utils.paser import arg_parse
 from utils.Arithmetic import *
+from utils.Generator import *
 
 
 if __name__ == '__main__':
@@ -11,3 +12,5 @@ if __name__ == '__main__':
     else:
         # GUI off
         pass
+
+Generator(num=10, domain=10).expression_generator()
