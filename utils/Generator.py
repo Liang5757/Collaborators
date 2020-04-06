@@ -1,6 +1,7 @@
 # 调用, 生成表达式集
 from utils.Calculate import *
 from utils.Operation import *
+import operator as oper
 
 
 class Generator(object):
@@ -17,17 +18,44 @@ class Generator(object):
         # 答案字符串集，用于io写入
         self.answers_str = []
         self.domain = domain
+        # 用答案作为索引构建的字典，
+        # {
+        #     "1'2/2": [
+        #         [压入的数字],
+        #         [压入的数字]
+        #     ]
+        # }
+        self.no_repeat_dict = {}
+
+    # 根据[压入的数字]判断是否重复
+    def judge_repeat(self, answer, stage_results):
+        for item in self.no_repeat_dict[answer]:
+            # 如果相等则返回False
+            if oper.eq(item, stage_results):
+                return False
+
+        return True
 
     # 生成表达式集
     def expression_generator(self):
         while self.expression_num > 0:
             expression = Arithmetic(self.domain).create_arithmetic()
-            answer = Calculate(expression).cal_expression()
+            [answer, stage_results] = Calculate(expression).cal_expression()
 
+            # 如果answer为false，则计算错误
             if answer:
-                self.expressions.append(expression)
-                self.answers.append(answer)
-                self.expression_num -= 1
+                # 如果该答案不存在字典中，则新建该键值对，否则判断重复，若重复则不添加表达式
+                if answer.to_string() in self.no_repeat_dict:
+                    if self.judge_repeat(answer.to_string(), stage_results):
+                        self.no_repeat_dict[answer.to_string()].append(stage_results)
+                        self.expressions.append(expression)
+                        self.answers.append(answer)
+                        self.expression_num -= 1
+                else:
+                    self.no_repeat_dict[answer.to_string()] = [stage_results]
+                    self.expressions.append(expression)
+                    self.answers.append(answer)
+                    self.expression_num -= 1
 
         # 表达式和答案字符串化成io所需格式
         self.expression_stringify()
@@ -57,3 +85,6 @@ class Generator(object):
             answer_str += answer.to_string()
 
             self.answers_str.append(answer_str)
+
+
+Generator(10000).expression_generator()
