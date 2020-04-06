@@ -10,7 +10,7 @@ if not os.path.exists('./docs'):
 
 
 # 检查
-def inspect(expression_file, answer_file):
+def inspect(answer_file, expression_file):
     # 正确错误列表序号
     correct_seq = []
     wrong_seq = []
@@ -36,25 +36,29 @@ def inspect(expression_file, answer_file):
             answer_sqe, answer = int(item_b.split('. ')[0]), item_b.split('. ')[1]
 
             # 找到对应的习题的行数
-            expression = expression_content[answer_sqe - 1].split('. ')[1].replace(' ', '')
+            expression = expression_content[answer_sqe - 1]
+            # print(expression)
 
             # 分割字符
-            pattern = re.split(r'[\n()×÷+-]+', expression)
+            pattern = re.split(r'([()×÷+-])+', expression.split('. ')[1].replace(" ", "").replace("\n", ""))
+            for index in range(pattern.count('')):
+                pattern.remove('')
+
             # 提取表达式并计算 如若正确存进
             aw = Calculate(pattern).cal_expression()
-            print(f"sqe{answer_sqe}, expression{expression}, pattern{pattern}, aw{aw}, answer{answer}")
+            print(f"原表达式{expression}\n提取表达式{pattern}\n计算值{aw}\n实际结果{answer}")
 
-            if Calculate(expression).cal_expression() == answer:
+            if Calculate(pattern).cal_expression() == answer:
                 correct_seq.append(answer_sqe)
 
-        # 避免漏题情况
+        # # 避免漏题情况
         for item_a in expression_content:
             a_sqe = item_a.split('. ')[0]
             if a_sqe not in correct_seq:
                 wrong_seq.append(a_sqe)
 
-        # 保存结果
-        save_inspect(correct_seq, wrong_seq)
+        # # 保存结果
+        # save_inspect(correct_seq, wrong_seq)
 
     except IOError:
         print('Failed to open file')
