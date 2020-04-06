@@ -24,7 +24,7 @@ if __name__ == '__main__':
             print('Parameter Error')
             exit(0)
         elif arg.a and arg.e:
-            pass
+            inspect(arg.a[0], arg.e[0])
         elif arg.n and arg.r:
             Generator(arg.n[0], arg.r[0]).expression_generator()
         elif arg.n:
