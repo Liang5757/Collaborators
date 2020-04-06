@@ -122,14 +122,15 @@ class Calculate(object):
 
                 # 除数不能为0
                 if num1 == "0" and element == '÷':
-                    return [False, stage_results]
+                    return [False, []]
 
                 # 结果
                 result = self.operate(num2, num1, element)
-                stage_results.append(result)
 
                 if result.denominator == 0 or '-' in result.to_string():
-                    return [False, stage_results]
+                    return [False, []]
+
+                stage_results.append(result.to_string())
 
                 # 结果入栈
                 calculate_stack.append(result)

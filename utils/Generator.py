@@ -1,7 +1,11 @@
 # 调用, 生成表达式集
 from utils.Calculate import *
 from utils.Operation import *
-import operator as oper
+import operator as op
+
+
+def test(item):
+    return item.to_string()
 
 
 class Generator(object):
@@ -21,17 +25,24 @@ class Generator(object):
         # 用答案作为索引构建的字典，
         # {
         #     "1'2/2": [
-        #         [压入的数字],
-        #         [压入的数字]
+        #         [[压入的数字], [操作数], [运算符]],
+        #         [[压入的数字], [操作数], [运算符]]
         #     ]
         # }
         self.no_repeat_dict = {}
 
     # 根据[压入的数字]判断是否重复
-    def judge_repeat(self, answer, stage_results):
-        for item in self.no_repeat_dict[answer]:
-            # 如果相等则返回False
-            if oper.eq(item, stage_results):
+    def judge_repeat(self, answer, test_sign):
+        for expression_sign in self.no_repeat_dict[answer]:
+            # 记录相同的个数
+            same_num = 0
+
+            for i in range(3):
+                if op.eq(expression_sign[i], test_sign[i]):
+                    same_num += 1
+
+            # 如果中间结果、操作数、运算符均相等，则为重复
+            if same_num == 3:
                 return False
 
         return True
@@ -39,20 +50,20 @@ class Generator(object):
     # 生成表达式集
     def expression_generator(self):
         while self.expression_num > 0:
-            expression = Arithmetic(self.domain).create_arithmetic()
+            [expression, operand_list, operator_list] = Arithmetic(self.domain).create_arithmetic()
             [answer, stage_results] = Calculate(expression).cal_expression()
 
             # 如果answer为false，则计算错误
             if answer:
                 # 如果该答案不存在字典中，则新建该键值对，否则判断重复，若重复则不添加表达式
                 if answer.to_string() in self.no_repeat_dict:
-                    if self.judge_repeat(answer.to_string(), stage_results):
-                        self.no_repeat_dict[answer.to_string()].append(stage_results)
+                    if self.judge_repeat(answer.to_string(), [stage_results, operand_list, operator_list]):
+                        self.no_repeat_dict[answer.to_string()].append([stage_results, operand_list, operator_list])
                         self.expressions.append(expression)
                         self.answers.append(answer)
                         self.expression_num -= 1
                 else:
-                    self.no_repeat_dict[answer.to_string()] = [stage_results]
+                    self.no_repeat_dict[answer.to_string()] = [[stage_results, operand_list, operator_list]]
                     self.expressions.append(expression)
                     self.answers.append(answer)
                     self.expression_num -= 1
@@ -87,4 +98,4 @@ class Generator(object):
             self.answers_str.append(answer_str)
 
 
-Generator(10000).expression_generator()
+Generator(100000).expression_generator()
