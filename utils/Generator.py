@@ -4,10 +4,6 @@ from utils.Operation import *
 import operator as op
 
 
-def test(item):
-    return item.to_string()
-
-
 class Generator(object):
 
     def __init__(self, num=10, domain=10):
@@ -96,6 +92,3 @@ class Generator(object):
             answer_str += answer.to_string()
 
             self.answers_str.append(answer_str)
-
-
-Generator(100000).expression_generator()
