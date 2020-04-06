@@ -25,31 +25,34 @@ def inspect(answer_file, expression_file):
             answer_content = fb.readlines()
         fb.close()
 
-        # for i, c in enumerate(expression_content):
-        #     print(i,)
-
         # 由答案文件获取序号 再在运算式中找到相对应的题目计算答案 再比较
         # 获取列表
         for item_b in answer_content:
 
-            # 当前答案的行数的序列号
+            # 当前答案的行数的序列号 和 答案
             answer_sqe, answer = int(item_b.split('. ')[0]), item_b.split('. ')[1]
 
             # 找到对应的习题的行数
             expression = expression_content[answer_sqe - 1]
-            # print(expression)
+            # print(f"expression: {expression}")
 
             # 分割字符
-            pattern = re.split(r'([()×÷+-])+', expression.split('. ')[1].replace(" ", "").replace("\n", ""))
+            pattern = re.split(r'([()×÷+-])+', expression.split('.')[1].replace(" ", "").replace("　", "").replace("\n", ""))
+
+            # 解决实际过程中在pattern中出现 ['', ]的情况
             for index in range(pattern.count('')):
                 pattern.remove('')
 
-            # 提取表达式并计算 如若正确存进
-            aw = Calculate(pattern).cal_expression()
-            print(f"原表达式{expression}\n提取表达式{pattern}\n计算值{aw}\n实际结果{answer}")
+            # print("pattern1: ", pattern)
 
-            if Calculate(pattern).cal_expression() == answer:
-                correct_seq.append(answer_sqe)
+            # 提取表达式并计算 如若正确存进
+            ex_test = ["9'4/5", '-', '(', '(', '2', '-', '1', ')', '×', "2'4/7", ')']
+            aws = Calculate(ex_test).cal_expression()[0]
+            print(f"原表达式{expression}提取表达式{pattern}\n计算值{aws}\n实际结果{answer}")
+            print(type(aws))
+
+            # if Calculate(pattern).cal_expression() == answer:
+            #     correct_seq.append(answer_sqe)
 
         # # 避免漏题情况
         for item_a in expression_content:
