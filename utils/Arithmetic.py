@@ -136,3 +136,8 @@ class Arithmetic(object):
         self.del_useless_bracket()
 
         return self.expression_split
+
+
+if __name__ == '__main__':
+    i = Arithmetic().create_arithmetic()
+    print(i)

@@ -22,16 +22,12 @@ class Generator(object):
     def expression_generator(self):
         while self.expression_num > 0:
             expression = Arithmetic(self.domain).create_arithmetic()
-            # print(expression)
+            answer = Calculate(expression).cal_expression()
 
-            # 生成阶段去重
-            if expression not in self.expressions:
-                answer = Calculate(expression).cal_expression()
-
-                if answer:
-                    self.expressions.append(expression)
-                    self.answers.append(answer)
-                    self.expression_num -= 1
+            if answer:
+                self.expressions.append(expression)
+                self.answers.append(answer)
+                self.expression_num -= 1
 
         # 表达式和答案字符串化成io所需格式
         self.expression_stringify()
@@ -40,7 +36,6 @@ class Generator(object):
         # 保存
         save_exercise(self.expressions_str)
         save_answer(self.answers_str)
-
 
     # 表达式集字符串化
     def expression_stringify(self):
