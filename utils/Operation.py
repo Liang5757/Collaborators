@@ -40,7 +40,7 @@ def inspect(answer_file, expression_file):
             if Calculate(pattern).cal_expression()[0].to_string() == answer.strip():
                 correct_seq.append(answer_sqe)
 
-        # 避免漏题情况
+        # 生成错误列表
         for item_a in expression_content:
             a_sqe = int(item_a.split('. ')[0])
             if a_sqe not in correct_seq:
