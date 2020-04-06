@@ -103,6 +103,8 @@ class Calculate(object):
     def cal_expression(self):
         # 生成后缀表达式
         expressions_result = self.generate_postfix_expression()
+        # 存储阶段性结果
+        stage_results = []
 
         # 使用list作为栈来计算
         calculate_stack = []
@@ -120,15 +122,17 @@ class Calculate(object):
 
                 # 除数不能为0
                 if num1 == "0" and element == '÷':
-                    return False
+                    return [False, stage_results]
 
                 # 结果
                 result = self.operate(num2, num1, element)
+                stage_results.append(result)
 
                 if result.denominator == 0 or '-' in result.to_string():
-                    return False
+                    return [False, stage_results]
 
                 # 结果入栈
                 calculate_stack.append(result)
+
         # 返回结果
-        return calculate_stack[0]
+        return [calculate_stack[0], stage_results]
