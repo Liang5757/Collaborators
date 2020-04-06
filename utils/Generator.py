@@ -5,7 +5,7 @@ from utils.Operation import *
 
 class Generator(object):
 
-    def __init__(self, num):
+    def __init__(self, num=10, domain=10):
         # 表达式个数
         self.expression_num = num
         # 表达式集
@@ -16,17 +16,22 @@ class Generator(object):
         self.answers = []
         # 答案字符串集，用于io写入
         self.answers_str = []
+        self.domain = domain
 
     # 生成表达式集
     def expression_generator(self):
-        while self.expression_num > 1:
-            expression = Arithmetic().create_arithmetic()
-            answer = Calculate(expression).cal_expression()
+        while self.expression_num > 0:
+            expression = Arithmetic(self.domain).create_arithmetic()
+            # print(expression)
 
-            if answer:
-                self.expressions.append(expression)
-                self.answers.append(answer)
-                self.expression_num -= 1
+            # 生成阶段去重
+            if expression not in self.expressions:
+                answer = Calculate(expression).cal_expression()
+
+                if answer:
+                    self.expressions.append(expression)
+                    self.answers.append(answer)
+                    self.expression_num -= 1
 
         # 表达式和答案字符串化成io所需格式
         self.expression_stringify()
@@ -35,6 +40,7 @@ class Generator(object):
         # 保存
         save_exercise(self.expressions_str)
         save_answer(self.answers_str)
+
 
     # 表达式集字符串化
     def expression_stringify(self):
@@ -56,6 +62,3 @@ class Generator(object):
             answer_str += answer.to_string()
 
             self.answers_str.append(answer_str)
-
-
-Generator(100).expression_generator()
