@@ -94,4 +94,4 @@ class Generator(object):
             self.answers_str.append(answer_str)
 
 
-Generator(1000).expression_generator()
+Generator(100000, 100).expression_generator()
