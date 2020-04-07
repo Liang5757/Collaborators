@@ -1,7 +1,7 @@
 # 调用, 生成表达式集
 from utils.Calculate import *
 from utils.Operation import *
-import operator as op
+import collections
 
 
 class Generator(object):
@@ -34,7 +34,7 @@ class Generator(object):
             same_num = 0
 
             for i in range(3):
-                if op.eq(expression_sign[i], test_sign[i]):
+                if collections.Counter(expression_sign[i]) == collections.Counter(test_sign[i]):
                     same_num += 1
 
             # 如果中间结果、操作数、运算符均相等，则为重复
@@ -92,3 +92,6 @@ class Generator(object):
             answer_str += answer.to_string()
 
             self.answers_str.append(answer_str)
+
+
+Generator(1000).expression_generator()
