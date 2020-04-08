@@ -22,7 +22,7 @@ class Arithmetic(object):
         # 存放表达式字符串
         self.expression_str = ""
 
-    # 生成随机操作数(自然数1、真分数0)
+    # 生成随机操作数(自然数1~9、真分数0)
     def random_number(self):
         num_type = random.randint(0, 1)
 

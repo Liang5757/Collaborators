@@ -3,6 +3,12 @@ from utils.Fraction import *
 from utils.Arithmetic import *
 from utils.constant import *
 
+"""
+::param 
+::return
+
+"""
+
 
 class Calculate(object):
 
