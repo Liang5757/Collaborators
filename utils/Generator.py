@@ -97,17 +97,13 @@ class Generator(object):
                 answer = f"{index}. {res[1].to_string()}"
                 expression_remain_num = res[2]
 
-                expression_str = ""
+                expression_str = str(index) + ". "
 
-                # 表达式字符串化
-                for index, expression in enumerate(res[0]):
-                    expression_str = str(index) + ". "
-
-                    for item in expression:
-                        if item in operator.values():
-                            expression_str += " " + item + " "
-                        else:
-                            expression_str += item
+                for item in res[0]:
+                    if item in operator.values():
+                        expression_str += " " + item + " "
+                    else:
+                        expression_str += item
 
                 # 存入缓冲区
                 self.buffer_expression.append(expression_str)
@@ -149,4 +145,4 @@ class Generator(object):
 
 
 if __name__ == '__main__':
-    Generator(100000, 100).multi_processor()
+    Generator(10000, 100).multi_processor()
