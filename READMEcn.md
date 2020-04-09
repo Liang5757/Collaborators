@@ -1,6 +1,6 @@
 # 四则运算生成 (Python)
 
-English
+[English](https://github.com/P4XL/Collaborators/blob/master/README.md)
 
 > **开发者**：[ZeongPaang](https://github.com/P4XL/) / [w1036933220](https://github.com/P4XL/Collaborators)
 
