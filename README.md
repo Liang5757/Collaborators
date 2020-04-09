@@ -1,6 +1,6 @@
 # Arithmetic Generator (Python)
 
-中文
+[中文](https://github.com/P4XL/Collaborators/blob/master/READMEcn.md)
 
 > **Developer**：[ZeongPaang](https://github.com/P4XL/) / [w1036933220](https://github.com/P4XL/Collaborators)
 
