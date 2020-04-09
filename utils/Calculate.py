@@ -68,7 +68,7 @@ class Calculate(object):
     def generate_postfix_expression(self):
         # 运算符栈
         operator_stack = []
-        # 后缀队列
+        # 后缀栈
         postfix_stack = []
 
         for element in self.expression:

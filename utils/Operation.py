@@ -58,10 +58,9 @@ def inspect(answer_file, expression_file):
 def save_exercise(expressions_list):
     exercise_file = './docs/Exercises.txt'
     try:
-        with open(exercise_file, 'w+', encoding='utf-8') as f:
+        with open(exercise_file, 'a+', encoding='utf-8') as f:
             for line in expressions_list:
                 f.write('{}\n'.format(line))
-        f.close()
     except IOError:
         print('Exercise.txt create failed. Please check again')
 
@@ -70,7 +69,7 @@ def save_exercise(expressions_list):
 def save_answer(answers_list):
     answer_file = './docs/Answer.txt'
     try:
-        with open(answer_file, 'w+', encoding='utf-8') as f:
+        with open(answer_file, 'a+', encoding='utf-8') as f:
             for line in answers_list:
                 f.write('{}\n'.format(line))
     except IOError:
@@ -88,6 +87,3 @@ def save_inspect(correct_list, wrong_list):
     except IOError:
         print('Grade.txt create failed. Please check again')
 
-
-if __name__ == '__main__':
-    inspect('..\\docs\\Answer.txt', '..\\docs\\Exercises.txt')

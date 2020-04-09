@@ -4,6 +4,7 @@ from utils.Operation import *
 from multiprocessing import Queue
 from multiprocessing import Process
 import operator as op
+import collections
 import multiprocessing
 import time
 
@@ -32,6 +33,7 @@ class Generator(object):
         self.buffer_expression = []
         self.buffer_answer = []
         self.buffer_domain = 1000 if num > 10 else 100
+        self.buffer_domain = 1000
         """    
         用答案作为索引构建的字典，
         {
@@ -51,7 +53,7 @@ class Generator(object):
             same_num = 0
 
             for i in range(3):
-                if op.eq(expression_sign[i], test_sign[i]):
+                if collections.Counter(expression_sign[i]) == collections.Counter(test_sign[i]):
                     same_num += 1
             # 如果中间结果、操作数、运算符均相等，则为重复
             if same_num == 3:
@@ -118,6 +120,9 @@ class Generator(object):
                 # 交由I/O操作函数
                 save_exercise(self.buffer_expression)
                 save_answer(self.buffer_answer)
+                # 清空buffer
+                self.buffer_expression.clear()
+                self.buffer_answer.clear()
                 # exit()
                 break
 
@@ -137,18 +142,5 @@ class Generator(object):
         queue.put(None)
 
         ene_time = time.time()
+
         print(f"\nBuffer size:{self.buffer_domain}, time cost: {ene_time - start_time}\n")
-
-
-if __name__ == '__main__':
-    # for eg in [10000, 50000, 100000]:
-    eg = 100
-    for i in range(50):
-        st = time.time()
-        Generator(eg, 100).multi_processor()
-        ed = time.time()
-        time_cost = str(ed - st)
-        with open(f'test_result_{eg}.txt', 'a', encoding='utf-8') as f:
-            f.write(time_cost + '\n')
-            f.close()
-
