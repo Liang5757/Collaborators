@@ -20,7 +20,18 @@
 - ~~Graphical user interface~~
 
 ----
-## 2.  Usage
+
+##  2.  Packages
+
+> Python version should be python3 and at least it works on Python 3.6 and Python 3.8. Already tested in environments below:
+>
+> - Windows10 Python 3.6 / 3.7 / 3.8
+
+> Used Packages:
+>
+> - re / os /  argparse / random
+
+## 3.  Usage
 
 ```
 $ Python main.py [-args|-args]
@@ -59,7 +70,6 @@ Collaborators/
 │  │  constant.py
 │  │  Fraction.py
 │  │  Generator.py
-│  │  Generatorold.py
 │  │  Operation.py
 │  └─  paser.py
 └─views
@@ -70,7 +80,7 @@ Collaborators/
 
 ----
 
-## 3.  Bugs
+## 4.  Bugs
 
 > Graphical user interface not finish
 >
@@ -78,12 +88,10 @@ Collaborators/
 
 ----
 
-## 4.  Cnblog Pages 🚀
+## 5.  Cnblog Pages 🚀
 
 - **[Arithmetic Generator (Python)](https://www.cnblogs.com/green--hand/p/12665616.html)**
 
 > [Author :  [ZeongPaang](https://github.com/P4XL/) / [w1036933220 ](https://www.cnblogs.com/green--hand/) ]
 >
 > [Date: Thursday, April 9, 2020]
-
-
