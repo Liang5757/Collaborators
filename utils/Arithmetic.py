@@ -22,14 +22,11 @@ class Arithmetic(object):
         # 存放表达式字符串
         self.expression_str = ""
 
-    # 生成随机操作数(自然数0、真分数1)
+    # 生成随机操作数(自然数1~9、真分数0)
     def random_number(self):
         num_type = random.randint(0, 1)
 
-        if num_type != 0:
-            # 不包括self.domain
-            number = str(random.randint(0, self.domain - 1))
-        else:
+        if num_type == 0:
             # 整数部分
             z = random.randint(0, self.domain - 1)
             # 分母
@@ -41,6 +38,9 @@ class Arithmetic(object):
                 number = str(z) + '\'' + str(molecular) + "/" + str(denominator)
             else:
                 number = str(molecular) + "/" + str(denominator)
+        else:
+            # 不包括self.domain
+            number = str(random.randint(0, self.domain - 1))
 
         return number
 
@@ -119,13 +119,17 @@ class Arithmetic(object):
         self.create_operand_list()
         self.create_operator_list()
 
+        i = 0
+
         # 构建表达式
-        self.expression_split.append(self.operand_list.pop())
-        self.expression_split.append(self.operator_list.pop())
-        while self.operator_list:
-            self.expression_split.append(self.operand_list.pop())
-            self.expression_split.append(self.operator_list.pop())
-        self.expression_split.append(self.operand_list.pop())
+        self.expression_split.append(self.operand_list[i])
+        self.expression_split.append(self.operator_list[i])
+        i += 1
+        while i < len(self.operator_list):
+            self.expression_split.append(self.operand_list[i])
+            self.expression_split.append(self.operator_list[i])
+            i += 1
+        self.expression_split.append(self.operand_list[i])
 
         # 插入括号
         if self.operator_num != 1:
@@ -135,9 +139,4 @@ class Arithmetic(object):
         # 删除无用括号
         self.del_useless_bracket()
 
-        return self.expression_split
-
-
-if __name__ == '__main__':
-    i = Arithmetic().create_arithmetic()
-    print(i)
+        return [self.expression_split, self.operand_list, self.operator_list]

@@ -1,6 +1,5 @@
 # OS操作, 传入表达式/答案/正确率保存到文件
 import os
-import time
 from utils.Calculate import *
 import re
 
@@ -19,49 +18,36 @@ def inspect(answer_file, expression_file):
         # 读取文件
         with open(expression_file, 'r', encoding='utf-8') as fa:
             expression_content = fa.readlines()
-        fa.close()
         # 读取文件
         with open(answer_file, 'r', encoding='utf-8') as fb:
             answer_content = fb.readlines()
-        fb.close()
 
         # 由答案文件获取序号 再在运算式中找到相对应的题目计算答案 再比较
         # 获取列表
         for item_b in answer_content:
 
-            # 当前答案的行数的序列号 和 答案
+            # 当前答案的行数的序列号
             answer_sqe, answer = int(item_b.split('. ')[0]), item_b.split('. ')[1]
 
             # 找到对应的习题的行数
             expression = expression_content[answer_sqe - 1]
-            # print(f"expression: {expression}")
 
             # 分割字符
-            pattern = re.split(r'([()×÷+-])+', expression.split('.')[1].replace(" ", "").replace("　", "").replace("\n", ""))
-
-            # 解决实际过程中在pattern中出现 ['', ]的情况
-            for index in range(pattern.count('')):
-                pattern.remove('')
-
-            # print("pattern1: ", pattern)
+            pattern = expression.strip().replace(' ', '').replace('　', '').split('.')[1]
+            pattern = list(filter(None, re.split(r'([()×÷+-])', pattern)))
 
             # 提取表达式并计算 如若正确存进
-            ex_test = ["9'4/5", '-', '(', '(', '2', '-', '1', ')', '×', "2'4/7", ')']
-            aws = Calculate(ex_test).cal_expression()[0]
-            print(f"原表达式{expression}提取表达式{pattern}\n计算值{aws}\n实际结果{answer}")
-            print(type(aws))
+            if Calculate(pattern).cal_expression()[0].to_string() == answer.strip():
+                correct_seq.append(answer_sqe)
 
-            # if Calculate(pattern).cal_expression() == answer:
-            #     correct_seq.append(answer_sqe)
-
-        # # 避免漏题情况
+        # 生成错误列表
         for item_a in expression_content:
-            a_sqe = item_a.split('. ')[0]
+            a_sqe = int(item_a.split('. ')[0])
             if a_sqe not in correct_seq:
                 wrong_seq.append(a_sqe)
 
-        # # 保存结果
-        # save_inspect(correct_seq, wrong_seq)
+        # 保存结果
+        save_inspect(correct_seq, wrong_seq)
 
     except IOError:
         print('Failed to open file')
@@ -96,12 +82,12 @@ def save_inspect(correct_list, wrong_list):
     inspect_file = './docs/Grade.txt'
     try:
         with open(inspect_file, 'w+', encoding='utf-8') as f:
-            f.write(f'Correct: {len(correct_list)}{correct_list}\n'
-                    f'Wrong: {len(wrong_list)}{wrong_list}\n'
-                    f'Accuracy: {round(len(correct_list) / len(wrong_list), 4) * 100}%\n')
+            f.write(f'Correct: {len(correct_list)} {correct_list}\n'
+                    f'Wrong: {len(wrong_list)} {wrong_list}\n'
+                    f'Accuracy: {round(len(correct_list) / (len(wrong_list) + len(correct_list)), 4) * 100}%\n')
     except IOError:
         print('Grade.txt create failed. Please check again')
 
 
 if __name__ == '__main__':
-    save_exercise(['1+1', '2+3'])
+    inspect('..\\docs\\Answer.txt', '..\\docs\\Exercises.txt')
