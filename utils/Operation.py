@@ -1,7 +1,7 @@
 # OS操作, 传入表达式/答案/正确率保存到文件
 import os
 from utils.Calculate import *
-import re
+from re import split
 
 # 文件保存位置
 if not os.path.exists('./docs'):
@@ -34,7 +34,7 @@ def inspect(answer_file, expression_file):
 
             # 分割字符
             pattern = expression.strip().replace(' ', '').replace('　', '').split('.')[1]
-            pattern = list(filter(None, re.split(r'([()×÷+-])', pattern)))
+            pattern = list(filter(None, split(r'([()×÷+-])', pattern)))
 
             # 提取表达式并计算 如若正确存进
             if Calculate(pattern).cal_expression()[0].to_string() == answer.strip():

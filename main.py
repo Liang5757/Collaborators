@@ -1,9 +1,5 @@
 from utils.paser import *
-# from utils.Arithmetic import *
-from utils.Calculate import *
-from utils.Operation import *
 from utils.Generator import *
-import time
 
 """
 ::param '-n': type=int, help=' the num of generated subject'
