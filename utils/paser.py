@@ -10,9 +10,4 @@ def arg_parse():
     parser.add_argument('-a', nargs=1, type=str, help='answer file')
     parser.add_argument('-g', help='GUI mode')
     args = parser.parse_args()
-    # print('args: ', args)
     return args
-
-
-if __name__ == '__main__':
-    arg_parse()

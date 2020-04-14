@@ -1,18 +1,22 @@
-import random
+from random import randint
 from utils.constant import *
+
+'''
+::return Arithmetic(domain).create_arithmetic()
+'''
 
 
 class Arithmetic(object):
 
     def __init__(self, domain=10):
         # 运算符个数
-        self.operator_num = random.randint(1, 3)
+        self.operator_num = randint(1, 3)
         # 操作数个数
         self.operand_num = self.operator_num + 1
         # 取值范围
         self.domain = domain
         # 是否有括号
-        self.has_bracket = random.randint(0, 1)
+        self.has_bracket = randint(0, 1)
         # 运算符集
         self.operator_list = []
         # 操作数集
@@ -24,15 +28,15 @@ class Arithmetic(object):
 
     # 生成随机操作数(自然数1~9、真分数0)
     def random_number(self):
-        num_type = random.randint(0, 1)
+        num_type = randint(0, 9)
 
         if num_type == 0:
             # 整数部分
-            z = random.randint(0, self.domain - 1)
+            z = randint(0, self.domain - 1)
             # 分母
-            denominator = random.randint(2, self.domain - 1)
+            denominator = randint(2, self.domain - 1)
             # 分子
-            molecular = random.randint(1, denominator - 1)
+            molecular = randint(1, denominator - 1)
 
             if z != 0:
                 number = str(z) + '\'' + str(molecular) + "/" + str(denominator)
@@ -40,7 +44,7 @@ class Arithmetic(object):
                 number = str(molecular) + "/" + str(denominator)
         else:
             # 不包括self.domain
-            number = str(random.randint(0, self.domain - 1))
+            number = str(randint(0, self.domain - 1))
 
         return number
 
@@ -57,14 +61,14 @@ class Arithmetic(object):
         num = self.operator_num
 
         while num:
-            self.operator_list.append(operator[random.randint(0, 3)])
+            self.operator_list.append(operator[randint(0, 3)])
             num -= 1
 
     # 随机产生括号的位置
     def random_bracket_place(self):
         while True:
-            left_bracket = random.randint(1, self.operand_num - 1)
-            right_bracket = random.randint(left_bracket + 1, self.operand_num)
+            left_bracket = randint(1, self.operand_num - 1)
+            right_bracket = randint(left_bracket + 1, self.operand_num)
 
             # 类似(1 + 2 + 3)的位置则重新随机
             if left_bracket == 1 and right_bracket == self.operand_num:
@@ -133,7 +137,7 @@ class Arithmetic(object):
 
         # 插入括号
         if self.operator_num != 1:
-            bracket_num = random.randint(1, self.operator_num - 1)
+            bracket_num = randint(1, self.operator_num - 1)
             self.insert_bracket(bracket_num)
 
         # 删除无用括号

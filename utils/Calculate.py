@@ -1,6 +1,5 @@
 # 计算类
 from utils.Fraction import *
-from utils.Arithmetic import *
 from utils.constant import *
 
 """
