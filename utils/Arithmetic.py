@@ -26,11 +26,11 @@ class Arithmetic(object):
         # 存放表达式字符串
         self.expression_str = ""
 
-    # 生成随机操作数(自然数1~9、真分数0)
+    # 生成随机操作数(自然数0、真分数1~2)
     def random_number(self):
-        num_type = randint(0, 9)
+        num_type = randint(0, 2)
 
-        if num_type == 0:
+        if num_type != 0:
             # 整数部分
             z = randint(0, self.domain - 1)
             # 分母

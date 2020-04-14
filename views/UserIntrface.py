@@ -17,7 +17,7 @@ class InitWindows(object):
 
         self.root = tk.Tk()
         self.root.iconbitmap("./views/favicon.ico")
-        self.root.geometry(f"220x330+{int(self.root.winfo_screenwidth()/2) - 110}+{int(self.root.winfo_screenheight()/2) - 165}")
+        self.root.geometry(f"220x360+{int(self.root.winfo_screenwidth()/2) - 110}+{int(self.root.winfo_screenheight()/2) - 180}")
         self.root.title("Exercise")
         self.init_widgets()
         self.root.mainloop()
@@ -25,11 +25,19 @@ class InitWindows(object):
     def init_widgets(self):
 
         def get_():
+
+            # 判断是否已经存在相关文件
+            if os.path.exists('./docs/Exercises.txt'):
+                os.remove('./docs/Exercises.txt')
+            if os.path.exists('./docs/Answer.txt'):
+                os.remove('./docs/Answer.txt')
             n = int(entry_input_num.get())
             r = int(entry_input_range.get())
-            Generator(n, r).multi_processor()
-            tk.messagebox.showinfo("Info", "Success")
-            os.system("explorer.exe .\\docs")
+            if n and r:
+                if n > 30000 or r < 50:
+                    tk.messagebox.showinfo("Info", "生成时间将较长,请耐心等待")
+                Generator(n, r).multi_processor()
+                tk.messagebox.showinfo("Info", "Success\n1")
 
         # All label
         lb_info_generate = tk.Label(self.root, text="生成四则运算表达式", anchor="center", width=16, fg="red")
@@ -45,6 +53,7 @@ class InitWindows(object):
         # All buttons
         btn_commit_generate = tk.Button(self.root, text="生成", command=get_, anchor="center", width=16)
         btn_commit_inspect = tk.Button(self.root, text="检查", command=self.inspect_dual_file, anchor="center", width=16)
+        btn_open_exploer = tk.Button(self.root, text="打开文件夹", command=self.open_exploer, anchor="center", width=16)
 
         # All file select buttons
         btn_select_expressions = tk.Button(self.root, text="选择题目文件", command=self.select_expression_file, anchor="center", width=16)
@@ -65,6 +74,7 @@ class InitWindows(object):
         btn_select_expressions.place(x=50, y=y_init + y_step * 7)
         btn_select_answers.place(x=50, y=y_init + y_step * 8)
         btn_commit_inspect.place(x=50, y=y_init + y_step * 9)
+        btn_open_exploer.place(x=50, y=y_init + y_step * 10)
 
     def select_expression_file(self):
         self.expression_file_name = tkinter.filedialog.askopenfilename()
@@ -80,6 +90,10 @@ class InitWindows(object):
         else:
             tk.messagebox.showinfo("Info", "Failed")
             return False
+
+    @staticmethod
+    def open_exploer():
+        os.system("explorer.exe .\\docs")
 
 
 if __name__ == '__main__':

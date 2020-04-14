@@ -32,6 +32,9 @@ def inspect(answer_file, expression_file):
             # 找到对应的习题的行数
             expression = expression_content[answer_sqe - 1]
 
+            # ###############################################
+            print(answer_sqe, expression)
+
             # 分割字符
             pattern = expression.strip().replace(' ', '').replace('　', '').split('.')[1]
             pattern = list(filter(None, split(r'([()×÷+-])', pattern)))

@@ -1,9 +1,9 @@
 # 调用, 生成表达式集
-from utils.Arithmetic import *
 from utils.Operation import *
 import collections
 import multiprocessing
-from time import time
+import time
+from utils.Arithmetic import *
 
 """
 ::arg num -'generator expression how many times'
@@ -29,8 +29,7 @@ class Generator(object):
         # 单次写入的缓冲区
         self.buffer_expression = []
         self.buffer_answer = []
-        self.buffer_domain = 1000 if num > 10 else 100
-        self.buffer_domain = 1000
+        self.buffer_domain = 1000 if num >= 10000 else 100
         """    
         用答案作为索引构建的字典，
         {
@@ -38,7 +37,7 @@ class Generator(object):
             [[压入的数字], [操作数], [运算符]],
             [[压入的数字], [操作数], [运算符]],
             ...
-            ]
+        ]
         }
         """
         self.no_repeat_dict = {}
@@ -125,7 +124,7 @@ class Generator(object):
 
     # 调用接口 生成多条题目
     def multi_processor(self):
-        start_time = time()
+        start_time = time.time()
 
         queue = multiprocessing.Queue()
         producer = multiprocessing.Process(target=self.expression_generator, args=(queue,))
@@ -138,6 +137,5 @@ class Generator(object):
         producer.join()
         queue.put(None)
 
-        ene_time = time()
-
-        print(f"Buffer size:{self.buffer_domain}, time cost: {ene_time - start_time}")
+        ene_time = time.time()
+        print(f"\nBuffer size:{self.buffer_domain}, time cost: {ene_time - start_time}\n")
