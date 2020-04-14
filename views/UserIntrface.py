@@ -23,12 +23,15 @@ class InitWindows(object):
         self.root.geometry(f"220x360+{int(self.root.winfo_screenwidth()/2) - 110}+{int(self.root.winfo_screenheight()/2) - 180}")
         self.root.title("Exercise")
         self.init_widgets()
-        # self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+
         self.root.mainloop()
 
-    # def on_closing(self):
-    #     if tk.messagebox.askokcancel("Quit", "Do you want to quit?"):
-    #         self.root.destroy()
+    def on_closing(self):
+        if tk.messagebox.askokcancel("退出", "确认退出？"):
+            # 退出 gui 直接结束进程, 防止程序继续执行消耗资源
+            os.system('taskkill /f /im %s' % 'python.exe')
+            self.root.destroy()
 
     def init_widgets(self):
 
@@ -65,14 +68,14 @@ class InitWindows(object):
         btn_open_exploer = tk.Button(self.root, text="打开文件夹", command=lambda: self.thread_event(self.open_explorer), anchor="center", width=self.btn_width)
 
         # All file select buttons
-        btn_select_expressions = tk.Button(self.root, text="选择题目文件", command=lambda: self.thread_event(self.select_expression_file), anchor="center", width=self.btn_width)
-        btn_select_answers = tk.Button(self.root, text="选择答案文件", command=lambda: self.thread_event(self.select_answer_file), anchor="center", width=self.btn_width)
+        self.btn_select_expressions = tk.Button(self.root, text="选择题目文件", command=lambda: self.thread_event(self.select_expression_file), anchor="center", width=self.btn_width)
+        self.btn_select_answers = tk.Button(self.root, text="选择答案文件", command=lambda: self.thread_event(self.select_answer_file), anchor="center", width=self.btn_width)
 
         # Create placement
 
         x_init, y_init, y_step = 90, 10, 30
 
-        lb_info_generate.place(x=50, y=y_init, )
+        lb_info_generate.place(x=50, y=y_init + 5, )
         lb_input_num.place(x=50, y=y_init + y_step, )
         entry_input_num.place(x=50, y=y_init + y_step * 2)
         lb_input_range.place(x=50, y=y_init + y_step * 3)
@@ -80,16 +83,18 @@ class InitWindows(object):
         btn_commit_generate.place(x=50, y=y_init + y_step * 5)
 
         lb_info_select.place(x=50, y=y_init + y_step * 6)
-        btn_select_expressions.place(x=50, y=y_init + y_step * 7)
-        btn_select_answers.place(x=50, y=y_init + y_step * 8)
+        self.btn_select_expressions.place(x=50, y=y_init + y_step * 7)
+        self.btn_select_answers.place(x=50, y=y_init + y_step * 8)
         btn_commit_inspect.place(x=50, y=y_init + y_step * 9)
         btn_open_exploer.place(x=50, y=y_init + y_step * 10)
 
     def select_expression_file(self):
         self.expression_file_name = tkinter.filedialog.askopenfilename()
+        self.btn_select_expressions.config(text="题目: {}".format(self.expression_file_name.split("/")[-1]))
 
     def select_answer_file(self):
         self.answer_file_name = tkinter.filedialog.askopenfilename()
+        self.btn_select_answers.config(text="答案: {}".format(self.answer_file_name.split("/")[-1]))
 
     def inspect_dual_file(self):
         if self.expression_file_name != '' and self.answer_file_name != '':
