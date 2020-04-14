@@ -27,6 +27,7 @@ class InitWindows(object):
         def get_():
 
             # 判断是否已经存在相关文件
+
             if os.path.exists('./docs/Exercises.txt'):
                 os.remove('./docs/Exercises.txt')
             if os.path.exists('./docs/Answer.txt'):
@@ -37,7 +38,8 @@ class InitWindows(object):
                 if n > 30000 or r < 50:
                     tk.messagebox.showinfo("Info", "生成时间将较长,请耐心等待")
                 Generator(n, r).multi_processor()
-                tk.messagebox.showinfo("Info", "Success\n1")
+
+                tk.messagebox.showinfo("Info", "Success")
 
         # All label
         lb_info_generate = tk.Label(self.root, text="生成四则运算表达式", anchor="center", width=16, fg="red")
@@ -86,7 +88,6 @@ class InitWindows(object):
         if self.expression_file_name != '' and self.answer_file_name != '':
             inspect(self.answer_file_name, self.expression_file_name)
             tk.messagebox.showinfo("Info", "Success")
-            os.system("explorer.exe .\\docs")
         else:
             tk.messagebox.showinfo("Info", "Failed")
             return False
