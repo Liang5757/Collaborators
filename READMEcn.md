@@ -1,6 +1,6 @@
 # 四则运算生成 (Python)
 
-English
+[English](https://github.com/P4XL/Collaborators/blob/master/README.md)
 
 > **开发者**：[ZeongPaang](https://github.com/P4XL/) / [w1036933220](https://github.com/P4XL/Collaborators)
 
@@ -37,12 +37,14 @@ English
 $ Python main.py [-args|-args]
 ```
 
-> $ args
-> ├─ -h --help	# 输出帮助信息
->    ├─ -n			  # 指定生成表达式数量，默认100
->    ├─ -r 			  # 指定生成表达式各个数字的取值范围，默认100
->    ├─ -a 			 # 需和-e参数共同使用进行批改，指定答案文件
->    └─ -e 			 # 需和-a参数共同使用进行批改，指定练习文件
+```
+ $ args
+    ├─ -h --help # 输出帮助信息
+    ├─ -n # 指定生成表达式数量，默认100
+    ├─ -r # 指定生成表达式各个数字的取值范围，默认100
+    ├─ -a # 需和-e参数共同使用进行批改，指定答案文件
+    └─ -e # 需和-a参数共同使用进行批改，指定练习文件
+```
 
 例子 ：
 
@@ -93,6 +95,6 @@ Collaborators/
 
 - **[四则运算生成命令行程序 (Python)](https://www.cnblogs.com/green--hand/p/12665616.html)**
 
-> [作者 :  [张鹏](https://github.com/P4XL/) / [郑靓](https://www.cnblogs.com/green--hand/) ]
+> [作者 :  [张鹏](https://www.cnblogs.com/XL-Lee/) / [郑靓](https://www.cnblogs.com/green--hand/) ]
 >
 > [时间:  二零二零年,  四月九日, 星期四]

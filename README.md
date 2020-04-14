@@ -1,7 +1,7 @@
 
 # Arithmetic Generator (Python)
 
-中文
+[中文](https://github.com/P4XL/Collaborators/blob/master/READMEcn.md)
 
 > **Developer**：[ZeongPaang](https://github.com/P4XL/) / [w1036933220](https://github.com/P4XL/Collaborators)
 
@@ -38,12 +38,15 @@
 $ Python main.py [-args|-args]
 ```
 
-> $ args
-> ├─ -h --help	# Output Info
->    ├─ -n			  # Specify the number of generated expressions, default 100
->    ├─ -r 			  # Specify the value range of each number in the generated expression, default 100
->    ├─ -a 			 # Need to be used together with the -e parameter for correction and specify the answer file
->    └─ -e 			 # Need to be used together with the -a parameter for correction and specify the practice file
+```
+ $ args
+    ├─ -h --help	# Output Info
+    ├─ -n	# Specify the number of generated expressions, default 100
+    ├─ -r # Specify the value range of each number in the generated expression, default 100
+    ├─ -a # Need to be used together with the -e parameter for correction and specify the answer file
+    └─ -e # Need to be used together with the -a parameter for correction and specify the practice file
+```
+
 
 Example :
 
@@ -93,6 +96,6 @@ Collaborators/
 
 - **[Arithmetic Generator (Python)](https://www.cnblogs.com/green--hand/p/12665616.html)**
 
-> [Author :  [ZeongPaang](https://github.com/P4XL/) / [w1036933220 ](https://www.cnblogs.com/green--hand/) ]
+> [Author :  [ZeongPaang](https://www.cnblogs.com/XL-Lee/) / [w1036933220 ](https://www.cnblogs.com/green--hand/) ]
 >
 > [Date: Thursday, April 9, 2020]
