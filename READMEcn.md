@@ -2,7 +2,7 @@
 
 [English](https://github.com/P4XL/Collaborators/blob/master/README.md)
 
-> **开发者**：[ZeongPaang](https://github.com/P4XL/) / [w1036933220](https://github.com/P4XL/Collaborators)
+> **开发者**：[ZeongPaang](https://github.com/P4XL/) / [w1036933220](https://github.com/w1036933220)
 
 ----
 
