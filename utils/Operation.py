@@ -59,6 +59,10 @@ def inspect(answer_file, expression_file):
 
 # 保存题目 传入序列号以及题目
 def save_exercise(expressions_list):
+
+    if os.path.exists("./docs/Exercises.txt"):
+        os.remove("./docs/Exercises.txt")
+
     exercise_file = './docs/Exercises.txt'
     try:
         with open(exercise_file, 'a+', encoding='utf-8') as f:
@@ -70,6 +74,10 @@ def save_exercise(expressions_list):
 
 # 保存答案 传入序列号以及答案
 def save_answer(answers_list):
+
+    if os.path.exists("./docs/Answer.txt"):
+        os.remove("./docs/Answer.txt")
+
     answer_file = './docs/Answer.txt'
     try:
         with open(answer_file, 'a+', encoding='utf-8') as f:
@@ -81,6 +89,10 @@ def save_answer(answers_list):
 
 # 保存比较结果 传入正确列表以及错误列表
 def save_inspect(correct_list, wrong_list):
+
+    if os.path.exists("./docs/Grade.txt"):
+        os.remove("./docs/Grade.txt")
+
     inspect_file = './docs/Grade.txt'
     try:
         with open(inspect_file, 'w+', encoding='utf-8') as f:
