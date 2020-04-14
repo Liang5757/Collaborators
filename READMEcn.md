@@ -86,6 +86,8 @@ Collaborators/
 
 ----
 
+![](https://github.com/P4XL/Collaborators/blob/master/views/gui.gif)
+
 ## 4.  Bugs
 
 > 指定开启GUI必须指定搭配一个无关参数: python ./main.py -g xxx

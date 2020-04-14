@@ -19,7 +19,8 @@ class InitWindows(object):
 
         self.root = tk.Tk()
         self.root.iconbitmap("./views/favicon.ico")
-        self.root.geometry(f"220x360+{int(self.root.winfo_screenwidth()/2) - 110}+{int(self.root.winfo_screenheight()/2) - 180}")
+        self.root.geometry(
+            f"220x360+{int(self.root.winfo_screenwidth()/2) - 110}+{int(self.root.winfo_screenheight()/2) - 180}")
         self.root.title("Exercise")
         self.init_widgets()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -41,14 +42,20 @@ class InitWindows(object):
         if os.path.exists('./docs/Answer.txt'):
             os.remove('./docs/Answer.txt')
 
-        n = int(self.entry_input_num.get())
-        r = int(self.entry_input_range.get())
-        if n and r:
-            if n > 30000 or r < 50:
+        try:
+            n = int(self.entry_input_num.get())
+            r = int(self.entry_input_range.get())
+            if r < 2 or n < 1:
+                tk.messagebox.showinfo("Info", "输入非法")
+            elif n > 30000 or r < 50:
                 tk.messagebox.showinfo("Info", "生成时间将较长,请耐心等待")
-            Generator(n, r, self.order).multi_processor()
+                Generator(n, r, self.order).multi_processor()
+            else:
+                Generator(n, r, self.order).multi_processor()
             tk.messagebox.showinfo("Info", "Success")
             self.open_explorer()
+        except ValueError:
+            tk.messagebox.showinfo("Info", "输入非法")
 
     def init_widgets(self):
 
@@ -98,12 +105,33 @@ class InitWindows(object):
         self.btn_select_answers.config(text="答案: {}".format(self.answer_file_name.split("/")[-1]))
 
     def inspect_dual_file(self):
-        if self.expression_file_name != '' and self.answer_file_name != '':
-            inspect(self.answer_file_name, self.expression_file_name)
-            tk.messagebox.showinfo("Info", "Success")
-        else:
-            tk.messagebox.showinfo("Info", "Failed")
-            return False
+        try:
+            if self.expression_file_name != '' and self.answer_file_name != '':
+                inspect(self.answer_file_name, self.expression_file_name)
+                self.get_inspect_info()
+            else:
+                tk.messagebox.showinfo("Info", "检查失败")
+                return False
+        except:
+            tk.messagebox.showinfo("Info", "选取了不合法的文件")
+
+    def get_inspect_info(self):
+        filename = './docs/Grade.txt'
+
+        flag = -3
+        with open(filename, 'rb') as f:
+            while True:
+                # 参数flag表示逆序读取的位数，参数2表示逆序读取
+                f.seek(flag, 2)
+                result = f.readlines()
+                if len(result) > 1:  # 只少逆序读了2行，获取最后一行
+                    break
+                flag *= 2
+            if tk.messagebox.askyesno("Info", "检查成功！\n"
+                                              f"{result[-1].decode('utf-8')}\n"
+                                              "打开答案文件吗？"
+                                      ):
+                os.system("explorer.exe .\\docs\\Grade.txt")
 
     @staticmethod
     def open_explorer():
