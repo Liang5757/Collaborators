@@ -54,13 +54,13 @@ Example :
 > Generate 100 subjects whose domain is in range from 0 to 100
 >
 > ```python
-> python -n 100 -r 100
+> python ArithmeticCLMode.py -n 100 -r 100
 > ```
 
 > Review files, need Exercise file and Answer file
 >
 > ```python
-> python -e ./docs/Exercise.txt -a ./docs/Answer.txt
+> python ArithmeticCLMode.py -e ./docs/Exercise.txt -a ./docs/Answer.txt
 > ```
 
 For default config, the file structure should be something like this:

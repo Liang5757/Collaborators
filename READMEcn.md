@@ -54,13 +54,13 @@ $ Python main.py [-args|-args]
 > 生成100道值域从0到100的四则运算
 >
 > ```python
-> python -n 100 -r 100
+> python ArithmeticCLMode.py -n 100 -r 100
 > ```
 
 > 检查答案，需要指定习题文件 以及 答案文件
 >
 > ```python
-> python -e ./docs/Exercise.txt -a ./docs/Answer.txt
+> python ArithmeticCLMode.py -e ./docs/Exercise.txt -a ./docs/Answer.txt
 > ```
 
 默认环境下，目录结果应该如下所示：
