@@ -3,6 +3,7 @@ import tkinter.filedialog
 import tkinter.messagebox
 from utils.Generator import *
 import os
+import threading
 
 
 class InitWindows(object):
@@ -22,12 +23,16 @@ class InitWindows(object):
         self.root.geometry(f"220x360+{int(self.root.winfo_screenwidth()/2) - 110}+{int(self.root.winfo_screenheight()/2) - 180}")
         self.root.title("Exercise")
         self.init_widgets()
+        # self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
+
+    # def on_closing(self):
+    #     if tk.messagebox.askokcancel("Quit", "Do you want to quit?"):
+    #         self.root.destroy()
 
     def init_widgets(self):
 
         def get_():
-
             # 判断是否已经存在相关文件
 
             if os.path.exists('./docs/Exercises.txt'):
@@ -40,8 +45,8 @@ class InitWindows(object):
                 if n > 30000 or r < 50:
                     tk.messagebox.showinfo("Info", "生成时间将较长,请耐心等待")
                 Generator(n, r).multi_processor()
-
                 tk.messagebox.showinfo("Info", "Success")
+                self.open_explorer()
 
         # All label
         lb_info_generate = tk.Label(self.root, text="生成四则运算表达式", anchor="center", width=self.btn_width, fg="red")
@@ -51,19 +56,19 @@ class InitWindows(object):
         lb_input_range = tk.Label(self.root, text="请输入生成表达式范围", anchor="center", width=self.btn_width)
 
         # All Entry box
-        entry_input_num = tk.Entry(self.root)
-        entry_input_range = tk.Entry(self.root)
+        entry_input_num = tk.Entry(self.root, width=self.btn_width + 1)
+        entry_input_range = tk.Entry(self.root, width=self.btn_width + 1)
 
         # All buttons
-        btn_commit_generate = tk.Button(self.root, text="生成", command=get_, anchor="center", width=self.btn_width)
-        btn_commit_inspect = tk.Button(self.root, text="检查", command=self.inspect_dual_file, anchor="center", width=self.btn_width)
-        btn_open_exploer = tk.Button(self.root, text="打开文件夹", command=self.open_exploer, anchor="center", width=self.btn_width)
+        btn_commit_generate = tk.Button(self.root, text="生成", command=lambda: self.thread_event(get_), anchor="center", width=self.btn_width)
+        btn_commit_inspect = tk.Button(self.root, text="检查", command=lambda: self.thread_event(self.inspect_dual_file), anchor="center", width=self.btn_width)
+        btn_open_exploer = tk.Button(self.root, text="打开文件夹", command=lambda: self.thread_event(self.open_explorer), anchor="center", width=self.btn_width)
 
         # All file select buttons
-        btn_select_expressions = tk.Button(self.root, text="选择题目文件", command=self.select_expression_file, anchor="center", width=self.btn_width)
-        btn_select_answers = tk.Button(self.root, text="选择答案文件", command=self.select_answer_file, anchor="center", width=self.btn_width)
+        btn_select_expressions = tk.Button(self.root, text="选择题目文件", command=lambda: self.thread_event(self.select_expression_file), anchor="center", width=self.btn_width)
+        btn_select_answers = tk.Button(self.root, text="选择答案文件", command=lambda: self.thread_event(self.select_answer_file), anchor="center", width=self.btn_width)
 
-        # #########  Create placement
+        # Create placement
 
         x_init, y_init, y_step = 90, 10, 30
 
@@ -95,8 +100,19 @@ class InitWindows(object):
             return False
 
     @staticmethod
-    def open_exploer():
+    def open_explorer():
         os.system("explorer.exe .\\docs")
+
+    @staticmethod
+    def thread_event(func):
+        # 创建
+        t = threading.Thread(target=func)
+        # 守护 !!!
+        t.setDaemon(True)
+        # 启动
+        t.start()
+        # 阻塞--卡死界面！
+        # t.join()
 
 
 if __name__ == '__main__':
