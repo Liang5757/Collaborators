@@ -1,6 +1,8 @@
 from utils.paser import *
 from views.UserIntrface import *
 
+# Call up command line mode
+
 """
 ::param '-n': type=int, help=' the num of generated subject'
 ::param '-r': type=int, help=' the range of generated numbers.'
