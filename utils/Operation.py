@@ -33,7 +33,7 @@ def inspect(answer_file, expression_file):
             expression = expression_content[answer_sqe - 1]
 
             # ###############################################
-            print(answer_sqe, expression)
+            # print(answer_sqe, expression)
 
             # 分割字符
             pattern = expression.strip().replace(' ', '').replace('　', '').split('.')[1]
