@@ -35,7 +35,7 @@
 ## 3.  Usage
 
 ```
-$ Python main.py [-args|-args]
+$ Python ArithmeticCLMode.py [-args|-args]
 ```
 
 ```
