@@ -4,6 +4,7 @@ import tkinter.messagebox
 from utils.Generator import *
 import os
 import threading
+import re
 
 
 class InitWindows(object):
@@ -90,19 +91,40 @@ class InitWindows(object):
 
     def select_expression_file(self):
         self.expression_file_name = tkinter.filedialog.askopenfilename()
-        self.btn_select_expressions.config(text="题目: {}".format(self.expression_file_name.split("/")[-1]))
+        if self.expression_file_name != '':
+            self.btn_select_expressions.config(text="题目: {}".format(self.expression_file_name.split("/")[-1]))
+        else:
+            self.btn_select_expressions.config(text="选择题目文件")
 
     def select_answer_file(self):
         self.answer_file_name = tkinter.filedialog.askopenfilename()
-        self.btn_select_answers.config(text="答案: {}".format(self.answer_file_name.split("/")[-1]))
+        if self.answer_file_name != '':
+            self.btn_select_answers.config(text="答案: {}".format(self.answer_file_name.split("/")[-1]))
+        else:
+            self.btn_select_answers.config(text="选择答案文件")
 
     def inspect_dual_file(self):
         if self.expression_file_name != '' and self.answer_file_name != '':
             inspect(self.answer_file_name, self.expression_file_name)
-            tk.messagebox.showinfo("Info", "Success")
+            tk.messagebox.showinfo("Info", "检查成功")
+            self.get_inspect_info()
         else:
-            tk.messagebox.showinfo("Info", "Failed")
+            tk.messagebox.showinfo("Info", "检查失败")
             return False
+
+    def get_inspect_info(self):
+        filename = './docs/Grade.txt'
+
+        flag = -3
+        with open(filename, 'rb') as f:
+            while True:
+                # 参数flag表示逆序读取的位数，参数2表示逆序读取
+                f.seek(flag, 2)
+                result = f.readlines()
+                if len(result) > 1:  # 只少逆序读了2行，获取最后一行
+                    tk.messagebox.showinfo("Info", result[-1].decode('utf-8'))
+                    break
+                flag *= 2
 
     @staticmethod
     def open_explorer():
@@ -118,7 +140,3 @@ class InitWindows(object):
         t.start()
         # 阻塞--卡死界面！
         # t.join()
-
-
-if __name__ == '__main__':
-    InitWindows()
