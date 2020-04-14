@@ -95,6 +95,6 @@ Collaborators/
 
 - **[四则运算生成命令行程序 (Python)](https://www.cnblogs.com/green--hand/p/12665616.html)**
 
-> [作者 :  [张鹏](https://github.com/P4XL/) / [郑靓](https://www.cnblogs.com/green--hand/) ]
+> [作者 :  [张鹏](https://www.cnblogs.com/XL-Lee/) / [郑靓](https://www.cnblogs.com/green--hand/) ]
 >
 > [时间:  二零二零年,  四月九日, 星期四]
