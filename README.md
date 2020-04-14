@@ -96,6 +96,6 @@ Collaborators/
 
 - **[Arithmetic Generator (Python)](https://www.cnblogs.com/green--hand/p/12665616.html)**
 
-> [Author :  [ZeongPaang](https://github.com/P4XL/) / [w1036933220 ](https://www.cnblogs.com/green--hand/) ]
+> [Author :  [ZeongPaang](https://www.cnblogs.com/XL-Lee/) / [w1036933220 ](https://www.cnblogs.com/green--hand/) ]
 >
 > [Date: Thursday, April 9, 2020]
