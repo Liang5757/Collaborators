@@ -1,12 +1,9 @@
 # 调用, 生成表达式集
-from utils.Calculate import *
 from utils.Operation import *
-from multiprocessing import Queue
-from multiprocessing import Process
-import operator as op
 import collections
 import multiprocessing
 import time
+from utils.Arithmetic import *
 
 """
 ::arg num -'generator expression how many times'
