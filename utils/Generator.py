@@ -29,8 +29,7 @@ class Generator(object):
         # 单次写入的缓冲区
         self.buffer_expression = []
         self.buffer_answer = []
-        self.buffer_domain = 1000 if num > 10 else 100
-        self.buffer_domain = 1000
+        self.buffer_domain = 1000 if num >= 10000 else 100
         """    
         用答案作为索引构建的字典，
         {
