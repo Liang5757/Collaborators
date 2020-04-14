@@ -18,7 +18,7 @@
 - While generating the subjects, calculate the answers to all the subjects and store them in the *Answers.txt* file in the current directory of the executing program
 - The program should be able to support the generation of 10,000 subjects.
 - The program supports the given subjects file and answer file, determine the right and wrong in the answer and count the number
-- ~~Graphical user interface~~
+- Graphical user interface
 
 ----
 
@@ -40,11 +40,11 @@ $ Python main.py [-args|-args]
 
 ```
  $ args
-    ├─ -h --help	# Output Info
-    ├─ -n	# Specify the number of generated expressions, default 100
-    ├─ -r # Specify the value range of each number in the generated expression, default 100
-    ├─ -a # Need to be used together with the -e parameter for correction and specify the answer file
-    └─ -e # Need to be used together with the -a parameter for correction and specify the practice file
+    ├─ -h --help    # Output Info
+    ├─ -n	    # Specify the number of generated expressions, default 100
+    ├─ -r           # Specify the value range of each number in the generated expression, default 100
+    ├─ -a           # Need to be used together with the -e parameter for correction and specify the answer file
+    └─ -e           # Need to be used together with the -a parameter for correction and specify the practice file
 ```
 
 
@@ -77,16 +77,14 @@ Collaborators/
 │  │  Operation.py
 │  └─  paser.py
 └─views
-    │  config.json
-    │  GUI.py
-    └─ MainWindow.py
+    └─ UserInterface.py
 ```
 
 ----
 
 ## 4.  Bugs
 
-> Graphical user interface not finish
+> gui mode must add a nonsense arg : python ./main.py -g xxx
 >
 > You tell me!
 
