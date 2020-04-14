@@ -86,6 +86,8 @@ Collaborators/
 
 ----
 
+![](https://github.com/P4XL/Collaborators/blob/master/views/gui.gif)
+
 ## 4.  Bugs
 
 > gui mode must add a nonsense arg : python ./main.py -g xxx
