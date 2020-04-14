@@ -1,5 +1,4 @@
 from utils.paser import *
-from utils.Generator import *
 from views.UserIntrface import *
 
 """
@@ -11,6 +10,11 @@ from views.UserIntrface import *
 """
 
 if __name__ == '__main__':
+
+    print("#==========================================================#\n"
+          "#  Welcome to Arithmetic Expression generating program :D  #\n"
+          "#==========================================================#\n"
+          )
 
     arg = arg_parse()
 

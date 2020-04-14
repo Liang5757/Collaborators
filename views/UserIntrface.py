@@ -16,9 +16,9 @@ class InitWindows(object):
         self.answer_file_name = ''
 
         self.root = tk.Tk()
-        # self.root.geometry("220x330+200+300")
+        self.root.iconbitmap("./views/favicon.ico")
         self.root.geometry(f"220x330+{int(self.root.winfo_screenwidth()/2) - 110}+{int(self.root.winfo_screenheight()/2) - 165}")
-        self.root.title("Arithmetic")
+        self.root.title("Exercise")
         self.init_widgets()
         self.root.mainloop()
 

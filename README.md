@@ -68,7 +68,10 @@ For default config, the file structure should be something like this:
 ```
 Collaborators/
 │ .gitingore
-│ main.py
+│ Arithmetic-CLM.py
+│ Arithmetic-GM.py
+│ README.md
+│ READMEcn.md
 ├─utils
 │  │  Arithmetic.py
 │  │  Calculate.py

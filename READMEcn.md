@@ -68,7 +68,10 @@ $ Python main.py [-args|-args]
 ```
 Collaborators/
 │ .gitingore
-│ main.py
+│ Arithmetic-CLM.py
+│ Arithmetic-GM.py
+│ README.md
+│ READMEcn.md
 ├─utils
 │  │  Arithmetic.py
 │  │  Calculate.py
