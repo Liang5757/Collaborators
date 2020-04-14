@@ -1,5 +1,6 @@
 from utils.paser import *
 from utils.Generator import *
+from views.UserIntrface import *
 
 """
 ::param '-n': type=int, help=' the num of generated subject'
@@ -15,7 +16,7 @@ if __name__ == '__main__':
 
     # 是否开启GUI
     if arg.g:
-        print('GUI mode not finished')
+        InitWindows()
     else:
         if (arg.e or arg.a) and (arg.n or arg.r):
             print('Parameter Error')
