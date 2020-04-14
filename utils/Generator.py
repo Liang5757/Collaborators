@@ -142,5 +142,4 @@ class Generator(object):
         queue.put(None)
 
         ene_time = time.time()
-
         print(f"\nBuffer size:{self.buffer_domain}, time cost: {ene_time - start_time}\n")
