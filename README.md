@@ -45,7 +45,7 @@ $ Python ArithmeticCLMode.py [-args|-args]
     ├─ -r           # Specify the value range of each number in the generated expression, default 100
     ├─ -a           # Need to be used together with the -e parameter for correction and specify the answer file
     ├─ -e           # Need to be used together with the -a parameter for correction and specify the practice file
-    └─ g            # GUI mode
+    └─ -g            # GUI mode
 ```
 
 
