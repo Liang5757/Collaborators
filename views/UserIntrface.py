@@ -9,6 +9,8 @@ class InitWindows(object):
 
     def __init__(self):
 
+        self.btn_width = 16
+
         self.expression_range = ''
         self.expression_number = ''
 
@@ -42,24 +44,24 @@ class InitWindows(object):
                 tk.messagebox.showinfo("Info", "Success")
 
         # All label
-        lb_info_generate = tk.Label(self.root, text="生成四则运算表达式", anchor="center", width=16, fg="red")
-        lb_info_select = tk.Label(self.root, text="检查答案", anchor="center", width=16, fg="red")
+        lb_info_generate = tk.Label(self.root, text="生成四则运算表达式", anchor="center", width=self.btn_width, fg="red")
+        lb_info_select = tk.Label(self.root, text="检查答案", anchor="center", width=self.btn_width, fg="red")
 
-        lb_input_num = tk.Label(self.root, text="请输入生成表达式数量", anchor="center", width=16)
-        lb_input_range = tk.Label(self.root, text="请输入生成表达式范围", anchor="center", width=16)
+        lb_input_num = tk.Label(self.root, text="请输入生成表达式数量", anchor="center", width=self.btn_width)
+        lb_input_range = tk.Label(self.root, text="请输入生成表达式范围", anchor="center", width=self.btn_width)
 
         # All Entry box
         entry_input_num = tk.Entry(self.root)
         entry_input_range = tk.Entry(self.root)
 
         # All buttons
-        btn_commit_generate = tk.Button(self.root, text="生成", command=get_, anchor="center", width=16)
-        btn_commit_inspect = tk.Button(self.root, text="检查", command=self.inspect_dual_file, anchor="center", width=16)
-        btn_open_exploer = tk.Button(self.root, text="打开文件夹", command=self.open_exploer, anchor="center", width=16)
+        btn_commit_generate = tk.Button(self.root, text="生成", command=get_, anchor="center", width=self.btn_width)
+        btn_commit_inspect = tk.Button(self.root, text="检查", command=self.inspect_dual_file, anchor="center", width=self.btn_width)
+        btn_open_exploer = tk.Button(self.root, text="打开文件夹", command=self.open_exploer, anchor="center", width=self.btn_width)
 
         # All file select buttons
-        btn_select_expressions = tk.Button(self.root, text="选择题目文件", command=self.select_expression_file, anchor="center", width=16)
-        btn_select_answers = tk.Button(self.root, text="选择答案文件", command=self.select_answer_file, anchor="center", width=16)
+        btn_select_expressions = tk.Button(self.root, text="选择题目文件", command=self.select_expression_file, anchor="center", width=self.btn_width)
+        btn_select_answers = tk.Button(self.root, text="选择答案文件", command=self.select_answer_file, anchor="center", width=self.btn_width)
 
         # #########  Create placement
 
