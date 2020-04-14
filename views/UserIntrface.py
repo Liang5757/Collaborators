@@ -29,6 +29,7 @@ class InitWindows(object):
             r = int(entry_input_range.get())
             Generator(n, r).multi_processor()
             tk.messagebox.showinfo("Info", "Success")
+            os.system("explorer.exe .\\docs")
 
         # All label
         lb_info_generate = tk.Label(self.root, text="生成四则运算表达式", anchor="center", width=16, fg="red")
@@ -75,12 +76,10 @@ class InitWindows(object):
         if self.expression_file_name != '' and self.answer_file_name != '':
             inspect(self.answer_file_name, self.expression_file_name)
             tk.messagebox.showinfo("Info", "Success")
+            os.system("explorer.exe .\\docs")
         else:
             tk.messagebox.showinfo("Info", "Failed")
             return False
-
-    def generator(self):
-        print(self.expression_number, type(self.expression_range))
 
 
 if __name__ == '__main__':
