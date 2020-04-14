@@ -58,8 +58,8 @@ def inspect(answer_file, expression_file):
 
 
 # 保存题目 传入序列号以及题目
-def save_exercise(expressions_list):
-    exercise_file = './docs/Exercises.txt'
+def save_exercise(expressions_list, order):
+    exercise_file = './docs/Exercises{}.txt'.format(order)
     try:
         with open(exercise_file, 'a+', encoding='utf-8') as f:
             for line in expressions_list:
@@ -69,8 +69,8 @@ def save_exercise(expressions_list):
 
 
 # 保存答案 传入序列号以及答案
-def save_answer(answers_list):
-    answer_file = './docs/Answer.txt'
+def save_answer(answers_list, order):
+    answer_file = './docs/Answer{}.txt'.format(order)
     try:
         with open(answer_file, 'a+', encoding='utf-8') as f:
             for line in answers_list:

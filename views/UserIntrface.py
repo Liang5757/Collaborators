@@ -9,7 +9,6 @@ import threading
 class InitWindows(object):
 
     def __init__(self):
-
         self.btn_width = 16
 
         self.expression_range = ''
@@ -24,6 +23,7 @@ class InitWindows(object):
         self.root.title("Exercise")
         self.init_widgets()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.order = 0
 
         self.root.mainloop()
 
@@ -33,23 +33,24 @@ class InitWindows(object):
             os.system('taskkill /f /im %s' % 'python.exe')
             self.root.destroy()
 
+    def get_(self):
+        self.order += 1
+        # 判断是否已经存在相关文件
+        if os.path.exists('./docs/Exercises.txt'):
+            os.remove('./docs/Exercises.txt')
+        if os.path.exists('./docs/Answer.txt'):
+            os.remove('./docs/Answer.txt')
+
+        n = int(self.entry_input_num.get())
+        r = int(self.entry_input_range.get())
+        if n and r:
+            if n > 30000 or r < 50:
+                tk.messagebox.showinfo("Info", "生成时间将较长,请耐心等待")
+            Generator(n, r, self.order).multi_processor()
+            tk.messagebox.showinfo("Info", "Success")
+            self.open_explorer()
+
     def init_widgets(self):
-
-        def get_():
-            # 判断是否已经存在相关文件
-
-            if os.path.exists('./docs/Exercises.txt'):
-                os.remove('./docs/Exercises.txt')
-            if os.path.exists('./docs/Answer.txt'):
-                os.remove('./docs/Answer.txt')
-            n = int(entry_input_num.get())
-            r = int(entry_input_range.get())
-            if n and r:
-                if n > 30000 or r < 50:
-                    tk.messagebox.showinfo("Info", "生成时间将较长,请耐心等待")
-                Generator(n, r).multi_processor()
-                tk.messagebox.showinfo("Info", "Success")
-                self.open_explorer()
 
         # All label
         lb_info_generate = tk.Label(self.root, text="生成四则运算表达式", anchor="center", width=self.btn_width, fg="red")
@@ -59,11 +60,11 @@ class InitWindows(object):
         lb_input_range = tk.Label(self.root, text="请输入生成表达式范围", anchor="center", width=self.btn_width)
 
         # All Entry box
-        entry_input_num = tk.Entry(self.root, width=self.btn_width + 1)
-        entry_input_range = tk.Entry(self.root, width=self.btn_width + 1)
+        self.entry_input_num = tk.Entry(self.root, width=self.btn_width + 1)
+        self.entry_input_range = tk.Entry(self.root, width=self.btn_width + 1)
 
         # All buttons
-        btn_commit_generate = tk.Button(self.root, text="生成", command=lambda: self.thread_event(get_), anchor="center", width=self.btn_width)
+        btn_commit_generate = tk.Button(self.root, text="生成", command=lambda: self.thread_event(self.get_), anchor="center", width=self.btn_width)
         btn_commit_inspect = tk.Button(self.root, text="检查", command=lambda: self.thread_event(self.inspect_dual_file), anchor="center", width=self.btn_width)
         btn_open_exploer = tk.Button(self.root, text="打开文件夹", command=lambda: self.thread_event(self.open_explorer), anchor="center", width=self.btn_width)
 
@@ -77,9 +78,9 @@ class InitWindows(object):
 
         lb_info_generate.place(x=50, y=y_init + 5, )
         lb_input_num.place(x=50, y=y_init + y_step, )
-        entry_input_num.place(x=50, y=y_init + y_step * 2)
+        self.entry_input_num.place(x=50, y=y_init + y_step * 2)
         lb_input_range.place(x=50, y=y_init + y_step * 3)
-        entry_input_range.place(x=50, y=y_init + y_step * 4)
+        self.entry_input_range.place(x=50, y=y_init + y_step * 4)
         btn_commit_generate.place(x=50, y=y_init + y_step * 5)
 
         lb_info_select.place(x=50, y=y_init + y_step * 6)

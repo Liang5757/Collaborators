@@ -14,7 +14,8 @@ from utils.Arithmetic import *
 
 class Generator(object):
 
-    def __init__(self, num=10, domain=100):
+    def __init__(self, num=10, domain=100, order=0):
+        self.order = order
         # 表达式个数
         self.expression_num = num
         # 表达式集
@@ -107,15 +108,15 @@ class Generator(object):
                 # 缓冲区满100个时 写文件
                 if index % self.buffer_domain == 0 and expression_remain_num > self.buffer_domain:
                     # 交由I/O操作函数
-                    save_exercise(self.buffer_expression)
-                    save_answer(self.buffer_answer)
+                    save_exercise(self.buffer_expression, self.order)
+                    save_answer(self.buffer_answer, self.order)
                     # 清空buffer
                     self.buffer_expression.clear()
                     self.buffer_answer.clear()
             else:
                 # 交由I/O操作函数
-                save_exercise(self.buffer_expression)
-                save_answer(self.buffer_answer)
+                save_exercise(self.buffer_expression, self.order)
+                save_answer(self.buffer_answer, self.order)
                 # 清空buffer
                 self.buffer_expression.clear()
                 self.buffer_answer.clear()
